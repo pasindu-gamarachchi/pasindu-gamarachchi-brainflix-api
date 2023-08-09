@@ -1,0 +1,22 @@
+{
+  "name": "brainflix-api",
+  "version": "1.0.0",
+  "description": "Api to serve requests for the Brainflix client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pasindu-gamarachchi/pasindu-gamarachchi-brainflix-api.git"
+  },
+  "author": "Pasindu Gamarachchi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pasindu-gamarachchi/pasindu-gamarachchi-brainflix-api/issues"
+  },
+  "homepage": "https://github.com/pasindu-gamarachchi/pasindu-gamarachchi-brainflix-api#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
