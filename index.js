@@ -8,6 +8,8 @@ const cors = require('cors');
 
 const PORT = process.env.PORT || 5050;
 
+app.use(express.static('./public'));
+
 
 app.use((req, res, next) => {
     console.log('Request info: ' + String(req.ip) + ' ' +  String(req.path) +  ' '  + String(req.params) );
