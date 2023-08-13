@@ -2,3 +2,6 @@ node_modules/*
 
 logs/app.log
 misc
+data/*.json
+data/video-details.json
+data/videos.json
