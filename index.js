@@ -7,6 +7,7 @@ const videoRoutes = require('./routes/videos');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 5050;
+const TESTING = process.env.TESTING || false;
 
 app.use(express.static('./public'));
 
@@ -18,15 +19,10 @@ app.use((req, res, next) => {
 
     next();
   });
-
+const corsObj =  TESTING ?  { }:  { origin: process.env.CLIENT_HOST}
 
 app.use(cors(
-    {
-        origin: process.env.CLIENT_HOST
-        // "Access-Control-Allow-Origin": "*"
-        //'Access-Control-Allow-Origin': '*'
-        // origin: "*"
-    }
+    corsObj
 ))
 
 /*
@@ -55,6 +51,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, ()=> {
 
     console.log(`🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 ------------- Server running on ${PORT} ------------ 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀`);
-    console.log(`${process.env.CLIENT_HOST}`)
 })
 

@@ -94,8 +94,6 @@ const updateDetailedJson = (videoDataObj, filepath) => {
         "video": "https://project-2-api.herokuapp.com/stream",
         "timestamp": Date.now(),
         "comments": [
-          {
-          }
         ]
       }
       const detailedJsonData = readVideosfromFile(filepath);
