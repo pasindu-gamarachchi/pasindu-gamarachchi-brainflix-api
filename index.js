@@ -13,6 +13,9 @@ app.use(express.static('./public'));
 
 app.use((req, res, next) => {
     console.log('Request info: ' + String(req.ip) + ' ' +  String(req.path) +  ' '  + String(req.params) );
+    //res.setHeader("Access-Control-Allow-Origin", "*");
+    // res.set('Access-Control-Allow-Origin', '*');
+
     next();
   });
 
@@ -20,10 +23,23 @@ app.use((req, res, next) => {
 app.use(cors(
     {
         origin: process.env.CLIENT_HOST
+        // "Access-Control-Allow-Origin": "*"
+        //'Access-Control-Allow-Origin': '*'
+        // origin: "*"
     }
 ))
 
+/*
+var corsOptionsDelegate = function (req, callback) {
+    var corsOptions;
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
 
+    callback(null, corsOptions) // callback expects two parameters: error and options
+  }
+app.use(cors(corsOptionsDelegate)
+
+);
+*/
 app.use(express.json())
 
 app.use('/videos', videoRoutes);

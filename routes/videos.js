@@ -31,7 +31,7 @@ const validateRequestBody = (requestBody) => {
     
     let validateResults = {"isValid": true, "statusCode": 202, "statusMessage": "Ok"};
 
-    const keysToValidate = ["title", "channel", "image"];
+    const keysToValidate = ["title", "channel", "image", "description"];
 
     keysToValidate.forEach(element => {
         const reqBodyItem = requestBody[element];
@@ -67,9 +67,9 @@ const updateJsonFiles= (filePath, newData) =>{
     const jsonData = readVideosfromFile(filePath);
     newData = { id: uuid(), ...newData};
     updateDetailedJson(newData, VIDEOS_DETAILS_FILE_PATH);
-    delete newData.description;
-    jsonData.push(newData);
-    fs.writeFileSync(filePath, JSON.stringify(jsonData));
+    // delete newData.description;
+    // jsonData.push(newData);
+    // fs.writeFileSync(filePath, JSON.stringify(jsonData));
 
 }
 
@@ -86,7 +86,7 @@ const updateDetailedJson = (videoDataObj, filepath) => {
         "id": videoDataObj.id,
         "title": videoDataObj.title,
         "channel": videoDataObj.channel,
-        "image": videoDataObj.channel,
+        "image": videoDataObj.image,
         "description": videoDataObj.description,
         "views": "0",
         "likes": "0",
@@ -112,7 +112,7 @@ const updateDetailedJson = (videoDataObj, filepath) => {
 router.get("/", (req, res) => {
     try{
         //const filepath = VIDEOS_FILE_PATH;
-        let videos = readVideosfromFile(VIDEOS_FILE_PATH);
+        let videos = readVideosfromFile(VIDEOS_DETAILS_FILE_PATH);
         res.status(200).json(videos);
 
     }
