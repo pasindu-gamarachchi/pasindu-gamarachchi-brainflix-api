@@ -67,9 +67,6 @@ const updateJsonFiles= (filePath, newData) =>{
     const jsonData = readVideosfromFile(filePath);
     newData = { id: uuid(), ...newData};
     updateDetailedJson(newData, VIDEOS_DETAILS_FILE_PATH);
-    // delete newData.description;
-    // jsonData.push(newData);
-    // fs.writeFileSync(filePath, JSON.stringify(jsonData));
 
 }
 
@@ -97,7 +94,6 @@ const updateDetailedJson = (videoDataObj, filepath) => {
         ]
       }
       const detailedJsonData = readVideosfromFile(filepath);
-      // console.log(`Detailed JSON ---> ${detailedJsonData}`);
       detailedJsonData.push(detailedVideoObj);
       fs.writeFileSync(filepath, JSON.stringify(detailedJsonData));
 
@@ -111,7 +107,18 @@ router.get("/", (req, res) => {
     try{
         //const filepath = VIDEOS_FILE_PATH;
         let videos = readVideosfromFile(VIDEOS_DETAILS_FILE_PATH);
-        res.status(200).json(videos);
+        let videoData = videos.map((elem) =>{
+                return {
+                    id : elem.id,
+                    title: elem.title,
+                    channel: elem.channel,
+                    image: elem.image
+                }
+        }
+
+        )
+
+        res.status(200).json(videoData);
 
     }
     catch{
@@ -119,9 +126,6 @@ router.get("/", (req, res) => {
     }
     }
 ).post("/", (req, res)=> {
-    //TODO : validate request body. - DONE
-            // Update video data file - DONE
-            // Return response.     
     const validateRes = validateRequestBody(req.body);
     console.log(`Validate Res Status Code : ${validateRes}`);
 
