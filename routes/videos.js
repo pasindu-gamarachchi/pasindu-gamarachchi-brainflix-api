@@ -5,8 +5,7 @@ const { v4: uuid } = require('uuid');
 
 const router = require("express").Router();
 
-const VIDEOS_FILE_PATH =  './data/videos.json';
-const VIDEOS_DETAILS_FILE_PATH =  './data/video-details.json';
+const VIDEOS_DETAILS_FILE_PATH =  './data/videos.json';
 
 
 /*
@@ -29,7 +28,7 @@ const readVideosfromFile =  (filepath) => {
 const validateRequestBody = (requestBody) => {
 
     
-    let validateResults = {"isValid": true, "statusCode": 202, "statusMessage": "Ok"};
+    let validateResults = {"isValid": true, "statusCode": 201, "statusMessage": "Ok"};
 
     const keysToValidate = ["title", "channel", "image", "description"];
 
@@ -63,8 +62,7 @@ const validateRequestBody = (requestBody) => {
     @param {Object} newData  ;  Object with new data
 
 */
-const updateJsonFiles= (filePath, newData) =>{
-    const jsonData = readVideosfromFile(filePath);
+const updateJsonFiles= (newData) =>{
     newData = { id: uuid(), ...newData};
     updateDetailedJson(newData, VIDEOS_DETAILS_FILE_PATH);
 
@@ -78,12 +76,12 @@ const updateJsonFiles= (filePath, newData) =>{
 
 */
 const updateDetailedJson = (videoDataObj, filepath) => {
-    const timestamp = Date.now();
+    const DEFAULTIMGPATH = `/images/Upload-video-preview.jpg` 
     let detailedVideoObj = {
         "id": videoDataObj.id,
         "title": videoDataObj.title,
         "channel": videoDataObj.channel,
-        "image": videoDataObj.image,
+        "image": videoDataObj.image ==="setDefault" ? DEFAULTIMGPATH: videoDataObj.image,
         "description": videoDataObj.description,
         "views": "0",
         "likes": "0",
@@ -105,7 +103,6 @@ const updateDetailedJson = (videoDataObj, filepath) => {
 */
 router.get("/", (req, res) => {
     try{
-        //const filepath = VIDEOS_FILE_PATH;
         let videos = readVideosfromFile(VIDEOS_DETAILS_FILE_PATH);
         let videoData = videos.map((elem) =>{
                 return {
@@ -129,13 +126,13 @@ router.get("/", (req, res) => {
     const validateRes = validateRequestBody(req.body);
     console.log(`Validate Res Status Code : ${validateRes}`);
 
-    if (validateRes.statusCode !==202){
+    if (validateRes.statusCode !==201){
         const errResp = {isError: true, errMsg : validateRes.statusMessage};
         res.status(validateRes.statusCode).json(errResp);
     }
     else{
-        updateJsonFiles(VIDEOS_FILE_PATH, req.body);
-        res.status(202).json({"msg": "Video created."}) // TODO : Confirm what the required response is.
+        updateJsonFiles(req.body);
+        res.status(201).json({"msg": "Video created."})
     }
     
 })
@@ -151,7 +148,6 @@ router.get("/:id", (req, res) => {
     }
 
     )
-    console.log(`Found Video Obj ---> ${videoObj}`);
 
     if (!videoObj){
         res.status(404).json(
