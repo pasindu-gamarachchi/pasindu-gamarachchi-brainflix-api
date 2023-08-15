@@ -1,5 +1,5 @@
 node_modules/*
-
+!node_modules/.gitkeep
 logs/app.log
 misc
 data/*.json

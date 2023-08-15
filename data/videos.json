@@ -299,31 +299,5 @@
                 "timestamp": 1632496261000
             }
         ]
-    },
-    {
-        "id": "cc08bbfc-daee-4230-93e5-18976484b1dc",
-        "title": "Sunday 612",
-        "channel": "New User",
-        "image": "/images/Upload-video-preview.jpg",
-        "description": "PM",
-        "views": "0",
-        "likes": "0",
-        "duration": "4:01",
-        "video": "https://project-2-api.herokuapp.com/stream",
-        "timestamp": 1691964730079,
-        "comments": []
-    },
-    {
-        "id": "a06877ab-3d95-45d9-b835-b021a8a0950f",
-        "title": "Monday Test",
-        "channel": "New User",
-        "image": "/images/Upload-video-preview.jpg",
-        "description": "Test Monday",
-        "views": "0",
-        "likes": "0",
-        "duration": "4:01",
-        "video": "https://project-2-api.herokuapp.com/stream",
-        "timestamp": 1692046787179,
-        "comments": []
     }
 ]
